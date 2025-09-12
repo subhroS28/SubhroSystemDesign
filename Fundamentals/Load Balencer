@@ -1,1 +1,80 @@
-Test
+What's Load Balancing All About?
+Think of load balancing like a traffic cop at a busy intersection. Instead of letting all cars go through one lane (which would create a massive jam), the cop directs traffic across multiple lanes to keep things flowing smoothly.
+In system design, a load balancer sits between users and your servers, distributing incoming requests across multiple servers instead of overwhelming just one.
+Why Do We Need It?
+Core Problems It Solves:
+
+Single Point of Failure: Without load balancing, if your one server crashes, your entire application goes down
+Server Overload: One server handling all traffic will eventually buckle under pressure
+Poor Performance: Users experience slow response times when servers are overwhelmed
+
+Real Example: Imagine Netflix had only one server. During peak hours (like Friday nights), millions of users would hit that single server, causing crashes and buffering issues for everyone.
+Where to Place Load Balancers (3 Strategic Locations)
+
+Between Users & Web Servers
+
+First line of defense
+Example: When users visit amazon.com, load balancer decides which web server handles their request
+
+
+Between Web Servers & Application Servers
+
+Internal traffic distribution
+Example: Your web server needs to call payment processing service - load balancer picks which payment server to use
+
+
+Between Application Layer & Database
+
+Database query distribution
+Example: Your app needs user data - load balancer chooses which database replica to query
+
+
+
+How It Actually Works (Simple 5-Step Process)
+Let's say you're opening Instagram:
+
+You click Instagram app → Request goes to load balancer
+Load balancer thinks: "Which server is least busy right now?"
+Forwards your request → Sends it to Server #3 (least loaded)
+Server #3 processes → Gets your feed data and sends back
+Load balancer delivers → You see your Instagram feed
+
+Key Concepts You Must Know
+Health Checks: Load balancer constantly pings servers asking "Are you alive and working?"
+
+If server says "I'm dying" → Removed from pool
+If server recovers → Added back to pool
+
+Session Persistence: Keeping you connected to same server
+
+Example: Your shopping cart items stay consistent because you're always talking to the same server
+
+SSL/TLS Termination: Load balancer handles encryption/decryption
+
+Benefit: Backend servers focus on business logic instead of security overhead
+
+Real-World Analogy
+Restaurant Example:
+
+Load Balancer = Host at restaurant entrance
+Backend Servers = Different dining sections
+Health Checks = Host checking if sections are too crowded
+Algorithms = Host's strategy (send families to family section, couples to quiet area)
+
+When you arrive, the host doesn't randomly seat you. They check which section has space, which servers are overwhelmed, and direct you accordingly.
+Interview-Ready Points
+When asked "Why use load balancers?":
+
+Prevents single point of failure
+Improves performance through distribution
+Enables horizontal scaling
+Provides redundancy
+
+When asked "Where would you place them?":
+
+User-facing layer (web servers)
+Internal services layer (microservices)
+Data layer (database replicas)
+
+Key Takeaway
+Load balancing is like having multiple cashiers at a supermarket instead of one. It prevents long queues, handles peak traffic better, and if one cashier goes on break, others keep serving customers. Essential for any system expecting real traffic!
